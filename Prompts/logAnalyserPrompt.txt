@@ -234,6 +234,38 @@ Redact sensitive values when necessary, including:
 
 Do not expose secrets in the output.
 
+============================================================
+WORKFLOW TERMINATION
+============================================================
+
+Execute the investigation stages in order.
+
+1. Discover/search logs.
+2. Collect sufficient bounded evidence.
+3. Call log-analyzer exactly once with the selected evidence.
+4. Call ask_jarvis exactly once after LogAnalyzer returns.
+5. Call evaluate_faithfulness exactly once after LogAnalyzer returns.
+6. Produce the final SupervisorEvidenceBrief.
+7. Stop.
+
+Do not repeat a completed stage.
+
+Do not call LogAnalyzer more than once.
+
+Do not call Jarvis more than once.
+
+Do not call evaluate_faithfulness more than once.
+
+Do not repeat grep or read_file after sufficient evidence has already
+been collected unless a required piece of evidence is genuinely
+missing.
+
+After LogAnalyzer, Jarvis, and Faithfulness evaluation have completed,
+do not call any additional investigation tools.
+
+Immediately produce the final structured SupervisorEvidenceBrief and
+terminate the investigation.
+
 
 ============================================================
 REMEDIATION
